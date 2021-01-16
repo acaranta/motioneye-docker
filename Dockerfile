@@ -1,9 +1,7 @@
 FROM ubuntu:18.04 as builder
 
-LABEL maintainer="hurlenko"
-
 # https://github.com/Motion-Project/motion/releases
-ARG MOTION_VERSION=4.1.1
+ARG MOTION_VERSION=4.3.2
 
 RUN apt-get update -qqy \
     && apt-get install -qqy git wget lsb-release sudo \
@@ -14,7 +12,7 @@ RUN apt-get update -qqy \
 FROM ubuntu:18.04
 
 # https://github.com/ccrisan/motioneye/releases
-ARG MOTIONEYE_VERSION=0.39.3
+ARG MOTIONEYE_VERSION=0.42.1
 
 COPY --from=builder *.deb /tmp/motion.deb
 
@@ -58,9 +56,6 @@ RUN apt-get --quiet update \
 
 # R/W needed for motioneye to update configurations
 VOLUME /etc/motioneye
-
-# PIDs
-VOLUME /var/run/motion
 
 # Video & images
 VOLUME /var/lib/motioneye
